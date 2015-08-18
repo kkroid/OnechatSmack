@@ -440,7 +440,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
             try {
                 // Try to send a last SM Acknowledgement. Most servers won't find this information helpful, as the SM
                 // state is dropped after a clean disconnect anyways. OTOH it doesn't hurt much either.
-                sendSmAcknowledgementInternal();
+                sendSmAcknowledgement();
             } catch (InterruptedException | NotConnectedException e) {
                 LOGGER.log(Level.FINE, "Can not send final SM ack as connection is not connected", e);
             }
@@ -1101,7 +1101,7 @@ public class XMPPTCPConnection extends AbstractXMPPConnection {
                         case AckRequest.ELEMENT:
                             ParseStreamManagement.ackRequest(parser);
                             if (smEnabledSyncPoint.wasSuccessful()) {
-                                sendSmAcknowledgementInternal();
+                                sendSmAcknowledgement();
                             } else {
                                 LOGGER.warning("SM Ack Request received while SM is not enabled");
                             }
